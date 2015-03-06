@@ -9,7 +9,7 @@ This is currently just a test to see if I can get some things to work.
 
 ### Header
 
-```
+{% highlight js %}
 var test = "Test variable for markdown";
 [1, 2, 3].forEach(function(num) { console.log(num); });
-```
+<% endhighlight %>

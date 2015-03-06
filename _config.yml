@@ -1,0 +1,14 @@
+# Site settings
+title: CDRH Development Blog
+email: kdalziel2@unl.edu
+description: > # this means to ignore newlines until "baseurl:"
+    Ideas and updates from the development team at the
+    Center for Digital Research in the Humanities
+    and the University of Nebraska-Lincoln.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yourdomain.com" # the base hostname & protocol for your site
+twitter_username: CDRH_UNL
+github_username:  CDRH
+
+# Build settings
+markdown: kramdown

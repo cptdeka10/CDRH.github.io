@@ -18,15 +18,19 @@ A very recent experience I had leads me to believe that multiple sets of docs co
 
 #### Prototyping with Angular
 Some devs from the Google UX team gave one of the more interesting presentations of the day on prototyping ([video here](http://youtu.be/ufZpHuiyepg)).  Prototype websites for testing user interaction and design elements are a wonderful thing, but usually they do not incorporate real data nor do they have a lot of the bells and whistles that the production website will have.  They're a frame to get an idea of how the real website will work.  The Google team came up with some cool tools to use for prototyping that use Angular to make them more interactive.  Here are some of the highlights that I thought were cool:
+
 - Design in the browser
 
   Rather than doing all the design work in a tool (Illustrator / Photoshop), quickly toggling colors and images in the browser can give you a cool idea of how the UI looks in a browser.
+  
 - Tracking user interaction
 
   Angular can keep track of which videos a user played, buttons that they clicked, and more.  If you want to get an idea of how users are navigating your demo site or prototype, these statistics can be very useful.
+  
 - Accessibility
 
   Why make a class called "checkbox" when you can describe that its ROLE is a checkbox?  [ngAria](https://docs.angularjs.org/api/ngAria) supports [Accessible Rich Internet Applications](http://www.w3.org/TR/wai-aria/) offering a host of descriptions and functionality for users with accessibility concerns.  For more on accessibility at the conference, see this talk: [Accessibility Design Made Easy](http://youtu.be/_2Pt6Xx94Bc)
+  
 - Using real data
 
   No more lorem ipsum, the Google team is using Google Sheets to pull in data and update values on the fly.  All you need to do is reload your prototype to get any information that was added to the sheet.

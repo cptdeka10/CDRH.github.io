@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Manually mounting smb network drives on mac"
+date: 2015-04-16 18:29
+categories: nebnews, tips
+author: Jessica Dussault
+---
+
+We started on the Nebraska Newspapers project a few weeks ago, which builds on the Chronicling America software to display high resolution scans of old newspapers published throughout Nebraska.  In its preliminary stages, it involves moving around lots and lots of rather large files like tiffs and jpeg2000s.  The newspaper batches are living on massive network drives, but they're being processed on server specific to the Nebraska Newspapers project.  I first thought that I would just mount the network drives on the server directly, but, lacking the proper permissions on the server, I decided the next best thing to do would be to mount them on my local machine and then upload them to the server from there.  Slower, sure, but it would get the job done.
+
+#### The First Problems
+(TODO put the screenshots here)
+
+Although my coworkers could mount the network drives without a problem, I nearly immediately started having trouble accessing them.  With seemingly endless variety, the network drives and my computer squabbled with different errors and different combinations of issues.  At times I would think things were working until I clicked out of the new window with the files, at which point it would automatically (partially) unmount.  I say partially because although the UI showed it as being disconnected, I could still see it via the command line, although that too, treated it as if it was a cursed object.  The traditional "umount" command was useless.
+
+#### The Manual Solution
+
+My original stabs at solving the problem were a bit stilted because I just did not know very much about SMB protocol.  I still don't know a great deal about it, but I do know a lot more about the differences between Linux and Mac tools.  Mac has their own set of SMB commands that, as far as I can tell from internet message board pain, do not work as well as their Linux kin.

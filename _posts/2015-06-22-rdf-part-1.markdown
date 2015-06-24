@@ -6,13 +6,15 @@ categories: oscys rdf
 author: Jessica Dussault
 ---
 
-Linked Data.  The Semantic Web.  A lot of those terms have been rattling around in my brain for years, picked up from various digital humanities events and lectures.  A few weeks ago, a new project came up in which linked data is critical to discovering relationships between individuals.  Theoretically, I understood what this meant, but practically I had absolutely no idea how to even start implementing it.  I felt lost for a few days as I wallowed through lots of high level articles that all said the same thing or as I got stuck in the details of software I never should have looked at to begin with.  I even got briefly lost down a wikipedia rabbit hole of grammar when I looked up "predicate," since that word comes up a lot in linked data. I felt like I was missing a page in the owner's manual.  Where was the "Quick Setup" chapter?
+Linked Data.  The Semantic Web.  A lot of those terms have been rattling around in my brain for years, picked up from various digital humanities events and lectures.  We started on a new project that hopes to use linked data to analyze relationships between hundreds of individuals.  Theoretically, I understood what this meant, but practically I had absolutely no idea how to start implementing it.  
+
+I felt lost for a few days as I wallowed through lots of high level articles that all gave me the same introduction or as I got stuck in the details of software I never should have looked at to begin with.  I even got briefly lost down a wikipedia rabbit hole of grammar when I looked up "predicate," since that word comes up a lot in linked data. I felt like I was missing a page in the owner's manual.  Where was the "Quick Setup" chapter?
 
 ![Fun learning about predicates]({{ site.url }}assets/2015-06-22/grammar.jpg)
 
 <div class="img_caption">The programmer has NOT been enjoying reading about predicates, thanks.</div>
 
-What follows is certainly not the best introduction to linked data, but it is the kind of information that I was looking for as a step between beginning overviews and "so now that you're all set up..." articles. The next few blog posts are, essentially "how to actually set up some RDF."  But first, the obligatory post on what it actually is.
+What follows is certainly not the best introduction to linked data, but it is the kind of information that I was looking for as a step between beginning overviews and "so now that you're all set up..." articles. The next few blog posts are, essentially "how to actually set up some RDF."  But first, the obligatory post on what it is.
 
 ### Okay, so what are RDFs and OWLs?
 
@@ -94,7 +96,7 @@ Well, okay, that looks way more complicated than the examples above.  What it is
     person 000056 >> is a child of >> person 000057
     (etc)
 
-It looks a lot more complicated because it is using a mixture of literals and resources.  Literals are just straight up text and numbers. An example above is the person's fullName: "Queen, Louisa."  Resources are the URIs that point at other entries in the RDF document (or even in other RDF documents).  You could think of them as pointers.  If a person wanted to reference this particularly person, they would use the URI with #per.000056 on the end.  You could have defined the references to other people are literals like "per.000004" but then the magic of linked data would be lost.  It's power comes from knowing that the childOf relationship is one specific person and having access to the relationships and descriptions of that person as well.  So perhaps the above translation would be more accurate if we said:
+It looks a lot more complicated because it is using a mixture of literals and resources.  Literals are just straight up text and numbers. An example above is the person's fullName: "Queen, Louisa."  Resources are the URIs that point at other entries in the RDF document (or even in other RDF documents).  If you wanted to reference this particularly person, you would use the URI with #per.000056 on the end.  You could have defined the references to other people are literals like "per.000004" but then the magic of linked data would be lost.  Its power comes from knowing that the childOf relationship is one specific person and having access to the relationships and descriptions of that person as well.  So perhaps the above translation would be more accurate if we said:
 
     http://path#person000056 >> is a child of >> http://path#person000057
 

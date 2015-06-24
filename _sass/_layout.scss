@@ -249,3 +249,12 @@
         }
     }
 }
+
+.post-content img {
+    border: solid 2px black;
+}
+.img_caption {
+    margin-bottom: $spacing-unit;
+    font-size: 14px;
+    text-align: center;
+}

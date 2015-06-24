@@ -60,7 +60,7 @@ Now you could ask a question like "Find all the people that Picard knows and the
 
 <div class="img_caption">A basic visualization of our findings.</div>
 
-Though, to my knowledge, Picard has never met Dax, it would appear that run in the same circles.  This is a fairly small dataset, but if we had more crewmembers described in the triples, we could start constructing webs of relationships.
+Though, to my knowledge, Picard has never met Dax, it would appear that they run in the same circles.  This is a fairly small dataset, but if we had more crewmembers described in the triples, we could start constructing webs of relationships.
 
 ![Kirk, Sisko, and Uhura in everybody's favorite DS9 episode]({{ site.url }}assets/2015-06-22/kirk.jpg)
 

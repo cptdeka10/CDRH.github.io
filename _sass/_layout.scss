@@ -260,3 +260,18 @@
     font-size: 14px;
     text-align: center;
 }
+
+/** Jessica add on for table **/
+td:nth-child(odd) {
+    background: $grey-color-light;
+}
+td:nth-child(even) {
+    /*background: $grey-color;*/
+}
+th {
+    background: $grey-color;
+}
+table {
+    margin-bottom:15px;
+    /*margin: 8px 0px;*/
+}

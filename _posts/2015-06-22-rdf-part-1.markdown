@@ -128,3 +128,5 @@ Let's break down the OWL example:
 That means that now we know that anybody joined up as the oscys:childOf predicate will return an object that should be the oscys:parentOf the original person.  We could also do a search for all the predicates that are #familyOf and use those results to find all family relationships for a single person.  Pretty cool stuff, right?
 
 Thus endeth the crash course in what kind of things RDF does.  Next up, how to actually start running the queries!
+
+[Part II](http://cdrh.github.io/oscys/rdf/sparql/2015/07/06/rdf-part-2.html)

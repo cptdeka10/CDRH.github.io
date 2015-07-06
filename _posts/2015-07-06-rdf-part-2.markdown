@@ -1,0 +1,117 @@
+---
+layout: post
+title: "Figuring out RDF and SPARQL: Part II Getting Set Up"
+date: 2015-07-06 10:59
+categories: oscys rdf sparql
+author: Jessica Dussault
+---
+
+In [Part I](http://cdrh.github.io/oscys/rdf/2015/06/22/rdf-part-1.html) of the RDF crash course, I provided some examples of the types of information that you can get out of an RDF file.  I stopped just at the point where the floor was falling out from under me in other tutorials.  Right after explaining the basics of describing the data, suddenly tutorials would start throwing down mad SPARQL queries, SPARQL being to RDF what SQL is to relational databases.  But....how?  You don't just magically start querying a document.  That's like showing people some sample data and then saying "now try this SQL!"  That won't get you anywhere if you don't have a database set up and even if you have a database, you have to know how to send SQL its way.
+
+At this point, linked data life became confusing.  Did I need an RDF server?  What about the "triple store" I kept seeing in articles?  I wasn't even confident that the RDF or the OWL files were correctly created, yet.  I was pretty sure that I was going to spend a few hours learning how to load them into some software only to get errors and have no idea which moving piece (or pieces) was causing the trouble.
+
+![MAMP Icon]({{ site.url }}assets/2015-07-06/mamp.png)
+
+<div class="img_caption">What I felt like I was looking for, as an RDF newcomer, was something to hold my hand like MAMP.<p>This is the last time that you'll see a non-reptile in this blog post, so prepare yourself.</p></div>
+
+### The Moment of Englightenment
+
+It turns out that you don't need any fancy servers or technologies to test some rdf out.  There are nice people on the internet who have already set up those types of utilities for you, like the [SPARQLer](http://sparql.org/sparql.html) from sparql.org.  All you need is a RDF document (rdf, ttl, n3, etc) accessible via the web.  I readied my rdf file on a server and took aim with the faithful [SPARQLer](http://sparql.org/sparql.html).  "Give me all the subjects, predicates, and objects?  Question mark?" I asked it nervously in my best beginner SPARQL.  It responded with errors about our RDF file.  It could see the file and read it as rdf enough to give me errors! The breakthrough had been made.
+
+### Some Reptile Themed Examples
+
+Before we start trying to use our own files, let's find a ready to go RDF file to see how this works.  The [BBC's Nature](http://www.bbc.com/earth/uk) web pages have a nice system where you can [simply add different extensions](http://www.bbc.co.uk/nature/feedsanddata) to the URIs to get different formats back, which is perfect.  Today, to celebrate the awesomeness of marine reptiles, we will be learning about ichthyosaurs!
+
+![Illustration of ichthyosaurs]({{ site.url }}assets/2015-07-06/ichthyosaurs.jpg)
+
+<div class="img_caption">Today's proud RDF mascot brought to you by the Mesozoic Era.</div>
+<!-- source: http://www.dinosaurfact.net/backgrounds/aa1-1366-768.jpg -->
+
+Check out the page that the BBC has for ichthyosaurs at [http://www.bbc.co.uk/nature/life/Ichthyosaur](http://www.bbc.co.uk/nature/life/Ichthyosaur).  Looks pretty nice, sure, but no obvious linked data here.  Now, if you add .rdf to the end of the URI, the BBC gives you RDF rather than an HTML file.  If you would like to look at it, you should be able to open the downloaded file in a text editor: [Ichthyosaur RDF](http://www.bbc.co.uk/nature/life/Ichthyosaur.rdf).  Because the RDF is available online, we can access it via the [SPARQLer](http://sparql.org/sparql.html).
+
+![Sparql Query for BBC ichthyosaurs]({{ site.url }}assets/2015-07-06/sparql_ich_query.jpg)
+
+<div class="img_caption">Plugging in a basic query</div>
+
+Very quickly I'll run through what the above query is asking, for those of you unfamiliar with SPARQL.
+
+__SELECT__:  Select any variable that you can find
+
+__FROM__:  This is the rdf file that we are querying
+
+__WHERE__:  Things with question marks in front are variables.  We'll get into it more in a later post, but for now know that this is asking "give me the subject, predicate, and object of everything."  Or, if you prefer, "give me everything and how that is connected to anything else."  The names that you use do not matter, so feel free to write something like:
+
+    ?ichthyosaurs ?are ?cool
+
+The only problem with that being that then your results won't make a ton of sense to read, hence why I stuck with the subject, predicate, object naming conventions.
+
+Note that I also have "text" selected for my output.  Some sparql utilities have "html" instead of text, but essentially I'm picking that because it's pretty easy to read at a glance.  Feel free to request JSON, XML, etc.  The results will be the same but they will be organized differently.  Okay, let's click "Get Results" and see what happens!  Here is a sample of what is returned:
+
+| s (subject)   | p (predicate)   |   o (object)   |
+| ------------- | --------------- | -------------- |
+| \<http://www.bbc.co.uk/programmes/p00486xd#programme\> | \<http://pURI.org/ontology/po/subject\> | \<http://www.bbc.co.uk/nature/order/Ichthyosaur#order\> |
+| \<http://www.bbc.co.uk/programmes/p00486xd#programme\> | \<http://pURI.org/dc/terms/title\> | "A reptilian dolphin?" |
+| \<http://www.bbc.co.uk/nature/26153424\> | \<http://pURI.org/dc/terms/description\> | "A rare fossil reveals how marine reptiles evolved to give birth to live young, say scientists." |
+
+
+There are dozens more results, but let's just grab a few of them and figure out what they mean, starting with the first row.  The subject is a URI.  The predicate says that the URI is a subject of the site we were just querying.  The next row says that the same programme has a title of "A reptilian dolphin?"  If we type the URI into a browser we find that the link sends us to a page with a video titled, feel free to take a guess, "A reptilian dolphin?"  If you would like to hear the soothing voice of Sir David Attenborough, [give it a watch](http://www.bbc.co.uk/programmes/p00486xd#programme).
+
+The third result above is also a URI.  It has a description which says "A rare fossil reveals how marine reptiles evolved to give birth to live young, say scientists."  Let's learn a little bit more about that.  Go back to the query screen and put in that whole subject in the place of `?s`.  
+
+    SELECT *
+    FROM <http://www.bbc.co.uk/nature/life/Ichthyosaur.rdf>
+    WHERE {
+      <http://www.bbc.co.uk/nature/26153424> ?p ?o
+    }
+
+Now we get only four results and fewer columns.  Why fewer columns?  Because we specified the subject, so now there is no variable `?s` to return with the results.  We essentially said "give me all of the things related to the specific BBC nature item 26153424."  Keep in mind that we are still only asking the original ichthyosaur rdf file that question.
+
+| p (predicate)  |  o (object)  |
+| -------------- | ------------ |
+| \<http://xmlns.com/foaf/0.1/primaryTopic\>          | \<http://www.bbc.co.uk/nature/order/Ichthyosaur#order\> |
+| \<http://pURI.org/dc/terms/description\>            | "A rare fossil reveals how marine reptiles evolved to give birth to live young, say scientists." |
+| \<http://pURI.org/dc/terms/title\>                  | "Ancient reptile's birth fossilised" |
+| \<http://www.w3.org/1999/02/22-rdf-syntax-ns#type\> | \<http://xmlns.com/foaf/0.1/Document\> |
+
+Putting the subject we just specified into a browser sends us to an article titled ["Ancient reptile's birth fossilised"](http://www.bbc.co.uk/nature/26153424).  As we might have predicted from our RDF query, the article talks about Ichthyosaurs, it's has a "type" of document, and it discusses the birth of live young.
+
+This rabbit hole can go a long way.  Some of the results lead to other rdf documents which can also be queried, like the page on [Ophthalmosaurus](http://www.bbc.co.uk/nature/life/Ophthalmosaurus), a type of ichthyosaur.
+
+![Ophthalmosaurus eyeball]({{ site.url }}assets/2015-07-06/ophthalmosaurus.jpg)
+
+<div class="img_caption">Why don't you take a deep look into Ophthalmosaurus's sparqling eyes?</div>
+<!-- source: http://ichef.bbci.co.uk/naturelibrary/images/ic/credit/640x395/o/op/ophthalmosaurus/ophthalmosaurus_1.jpg -->
+
+### How To Query Your RDF with Online SPARQL Resources
+
+Here's a step by step guide to getting some queries going on your own linked data.  If you're like me, you just want to test some things out before you worry too much about how you are going to query loads of things, but keep in mind that using someone else's SPARQL power won't help you if you are looking to do a lot of processing.
+
+__Step One__:  Get an RDF document.  You could create your own, download some off the BBC's pages, find one elsewhere on the internet, etc.  If you're using your own you may want to run it through a [validator](http://www.w3.org/RDF/Validator/) before you start trying to query it.  Also, keep in mind that it doesn't have to be a file with a .rdf extension, it could be a .ttl file or any other SPARQL ready linked data document.
+
+![Turtle]({{ site.url }}assets/2015-07-06/turtle.jpg)
+
+<div class="img_caption">Validation will help you clean up your turtle (.ttl) files before you query them.</div>
+<!-- source: http://farm4.static.flickr.com/3189/2311658016_2907c40d0f.jpg -->
+
+__Step Two__:  If your RDF file has any prefixes (basically namespaces) at the top that are from ontologies that you personally created, you will need to have those OWL files and whathaveyou at the ready as well.  Otherwise, they should already be available on the web.
+
+__Step Three__:  Put your RDF and OWL files in a place that is accessible from the web.  If you already have a website, upload them just like you would any of your other files and note the path.  The tricky part here is that in numerous places throughout the RDF and OWL files, there are references to URIs, as you may have noticed from the ichthyosaur examples.  If you cannot put the files at that exact path, you will have to find and replace all references with the URI where you just put the documents.
+
+__Step Four__:  Head to the [SPARQLer](http://sparql.org/sparql.html)!  Put in a basic query to see if everything is working correctly.  You can either put your RDF file's location in the "Target Graph URI" or you can use a "FROM" statement.
+
+    SELECT ?subject ?predicate ?object
+    FROM <http://server.unl.edu/jessica/oscys_test.rdf>
+    WHERE {
+      ?subject ?predicate ?object
+    }
+
+__Step Five__:  Pick the response format!  I like text/html when I'm just messing around, but if you are going to be using the results for a script then you might want XML, CSV, or JSON results.
+
+__Step Six__:  View your sweet, sweet results.  If you have an error, does it look like it is understandable?
+
+    Error 400: Failed to load URL http://www.bbc.co.uk/naturefdfdafdafdafda.ttl
+    Fuseki - version 1.1.2
+
+If you got the above, you might want to make sure that the "FROM" line of your query is pointed at the right place.  You may want to actually put the URI into your browser to make sure that you don't get a 400 error when you navigate there manually.  If you're hosting the file yourself, make sure that the correct permissions exist for the file to be served up.
+
+__Step Seven__:  Do something cool with your data.  Link your subjects out to other resources, learn about the relationships between items, create visualizations, generate pages, or whatever else you can dream up.  In the next couple of posts, I'll talk about how we've been using the RDF data for some network visualizations, queries, and scripts that we've been using to move between spreadsheet entries to results.

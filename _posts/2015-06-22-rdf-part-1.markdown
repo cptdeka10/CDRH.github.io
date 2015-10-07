@@ -73,20 +73,22 @@ Of course, writing the triples doesn't look nearly so nice as my arrow delineate
 
 An excerpt from an RDF file
 
-    <?xml version="1.0" encoding="UTF-8"?>
-    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:oscys="http://server.unl.edu/rdf/oscys.owl#">
-      <rdf:Description rdf:about="http://server.unl.edu/rdf/oscys_test#per.000056">
-        <rdf:type>person</rdf:type>
-        <oscys:fullName>Queen, Louisa</oscys:fullName>
-        <oscys:sex>female</oscys:sex>
-        <oscys:childOf rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000057"/>
-        <oscys:enslavedBy rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000058"/>
-        <oscys:petitionerAgainst rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000058"/>
-        <oscys:clientOf rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000001"/>
-        <oscys:judgedBy rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000004"/>
-        <oscys:judgedBy rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000063"/>
-      </rdf:Description>
-    </rdf:RDF>
+{% highlight xml %}
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:oscys="http://server.unl.edu/rdf/oscys.owl#">
+  <rdf:Description rdf:about="http://server.unl.edu/rdf/oscys_test#per.000056">
+    <rdf:type>person</rdf:type>
+    <oscys:fullName>Queen, Louisa</oscys:fullName>
+    <oscys:sex>female</oscys:sex>
+    <oscys:childOf rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000057"/>
+    <oscys:enslavedBy rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000058"/>
+    <oscys:petitionerAgainst rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000058"/>
+    <oscys:clientOf rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000001"/>
+    <oscys:judgedBy rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000004"/>
+    <oscys:judgedBy rdf:resource="http://server.unl.edu/rdf/oscys_test#per.000063"/>
+  </rdf:Description>
+</rdf:RDF>
+{% endhighlight %}
 
 Well, okay, that looks way more complicated than the examples above.  What it is really saying is the following:
 
@@ -108,13 +110,15 @@ But wait, there's just one more detail in the RDF that we can't overlook.  There
 <!-- source of above image: http://www.aktifmag.com/wp-content/uploads/2013/02/cute-little-owl-Wallpaper__yvt2.jpg -->
 
 An excerpt from the Oh Say Can You See OWL file:
-  
-    <owl:ObjectProperty rdf:about="#parentOf">
-      <rdfs:domain rdf:resource="#Person"/>
-      <rdfs:range rdf:resource="#Person"/>
-      <owl:Inverseof rdf:resource="childOf"/>
-      <rdfs:subPropertyOf rdf:resource="#familyOf"/>
-    </owl:ObjectProperty>
+
+{% highlight xml %}
+<owl:ObjectProperty rdf:about="#parentOf">
+  <rdfs:domain rdf:resource="#Person"/>
+  <rdfs:range rdf:resource="#Person"/>
+  <owl:Inverseof rdf:resource="childOf"/>
+  <rdfs:subPropertyOf rdf:resource="#familyOf"/>
+</owl:ObjectProperty>
+{% endhighlight %}
 
 To connect them up, just make sure that you're referencing the OWL file at the top of your RDF file.  In the example RDF file, you'll see that it is assigned to the namespace "oscys."
 

@@ -58,12 +58,13 @@ There are dozens more results, but let's just grab a few of them and figure out 
 
 The third result above is also a URI.  It has a description which says "A rare fossil reveals how marine reptiles evolved to give birth to live young, say scientists."  Let's learn a little bit more about that.  Go back to the query screen and put in that whole subject in the place of `?s`.  
 
-    SELECT *
-    FROM <http://www.bbc.co.uk/nature/life/Ichthyosaur.rdf>
-    WHERE {
-      <http://www.bbc.co.uk/nature/26153424> ?p ?o
-    }
-
+{% highlight sparql %}
+SELECT *
+FROM <http://www.bbc.co.uk/nature/life/Ichthyosaur.rdf>
+WHERE {
+  <http://www.bbc.co.uk/nature/26153424> ?p ?o
+}
+{% endhighlight %}
 Now we get only four results and fewer columns.  Why fewer columns?  Because we specified the subject, so now there is no variable `?s` to return with the results.  We essentially said "give me all of the things related to the specific BBC nature item 26153424."  Keep in mind that we are still only asking the original ichthyosaur rdf file that question.
 
 | p (predicate)  |  o (object)  |
@@ -99,11 +100,13 @@ __Step Three__:  Put your RDF and OWL files in a place that is accessible from t
 
 __Step Four__:  Head to the [SPARQLer](http://sparql.org/sparql.html)!  Put in a basic query to see if everything is working correctly.  You can either put your RDF file's location in the "Target Graph URI" or you can use a "FROM" statement.
 
-    SELECT ?subject ?predicate ?object
-    FROM <http://server.unl.edu/jessica/oscys_test.rdf>
-    WHERE {
-      ?subject ?predicate ?object
-    }
+{% highlight sparql %}
+SELECT ?subject ?predicate ?object
+FROM <http://server.unl.edu/jessica/oscys_test.rdf>
+WHERE {
+  ?subject ?predicate ?object
+}
+{% endhighlight %}
 
 __Step Five__:  Pick the response format!  I like text/html when I'm just messing around, but if you are going to be using the results for a script then you might want XML, CSV, or JSON results.
 

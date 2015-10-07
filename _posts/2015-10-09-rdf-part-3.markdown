@@ -1,0 +1,375 @@
+---
+layout: post
+title:  "Figuring out RDF and SPARQL: Part III Some Queries"
+date:   2015-10-09 10:00
+categories: oscys rdf sparql
+author: Jessica Dussault
+---
+
+In [part II](http://cdrh.github.io/oscys/rdf/sparql/2015/07/06/rdf-part-2.html) of this series, we learned how to run a basic query on some RDF.  In this part, I'll be explaining some of the queries that we are running behind the scenes to power the [O Say Can You See website](http://earlywashingtondc.org).  This post needs a theme, and one of the better known individuals from the project is Francis Scott Key, so let's all welcome him to the stage.
+
+![Francis Scott Key]({{ site.url }}assets/2015-10-09/key_portrait.jpg)
+
+<div class="img_caption">
+  <p>Francis Scott Key:</p>
+  A slave owner who represented slaves in court<br />
+  He is probably better known for penning the words now used in the Star Spangled Banner
+</div>
+<!-- source of above image:  "Francis Scott Key by Joseph Wood c1825" by attributed to Joseph Wood (1778-1830) - [1]. Licensed under Public Domain via Wikimedia Commons - https://commons.wikimedia.org/wiki/File:Francis_Scott_Key_by_Joseph_Wood_c1825.jpg#/media/File:Francis_Scott_Key_by_Joseph_Wood_c1825.jpg -->
+
+## O Say Can You See: Early Washington, D.C., Law & Family
+
+The O Say Can You See (OSCYS) project explores relationships between individuals involved in legal proceedings in Washington, D.C. from 1800 to 1862.  Legal documents like summonses, minute books, verdicts, and depositions were located, digitized, and marked up.  From those documents, relationships between individuals were gathered, described in a TTL file, and defined in an OWL file.
+
+
+We use SPARQL on the TTL and OWL files to power a few features that show up for each person in OSCYS.  On an individual's page, we list all of their immediate relationships and link to that person's network visualization.  The visualization has not only links to other people, but the type of link.  If you are less interested in a specific person and more interested in a general type of relationship, then head to the "people" page where the types of connections (spouse of, attorney for, etc) between all the individuals in OSCYS are browsable.  Additionally, there is a search feature that allows you to look at how many ways the attorneys are related.  All of this information is being powered by RDF.  I've explained the queries that I used to get the information below, if you would like to jump straight to the explanations.  However, a little background information about how our metadata expert, Laura Weakly, encoded the relationships is probably the best place to start!
+
+<a name="contents"></a>
+
+- [Background: OWL and TTL](#background)
+- [Direct Connections](#immediate)
+- [Network Visualization](#visualization)
+- [Connection Types](#connections)
+- [Attorney Search](#attorneys)
+
+## Background<a name="background"></a>
+
+Much of the information about each person is described in a TEI file (available here: [caution, large file](http://cdrhsites.unl.edu/data/projects/oscys/tei/oscys.persons.xml)).  However, information specific to the relationships between individuals are stored in a [turtle file](http://earlywashingtondc.org/relationships.ttl) with this type of setup:
+
+    person 1   >   attorney of   >   person 2
+    person 2   >   client of     >   person 1
+
+More information about each relationship is stored in the [OWL file](http://earlywashingtondc.org/ontology.owl).  The owl file says:
+
+    attorney of   >   inverse of   >   client of
+    attorney of   >   type         >   legal relationship
+    client of     >   inverse of   >   attorney of
+    client of     >   type         >   legal relationship
+
+Using a combination of the two documents, we can now start to answer some questions.
+
+- Who is a given person related to?
+- Who is related to someone who is related to a given person?
+- Which people have any type of family relationships?
+- Which people are the attorneys of someone else?
+
+This is what a typical query setup looks like for OSCYS:
+
+{% highlight sparql %}
+
+PREFIX osrdf: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#>
+PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+
+SELECT *
+FROM <http://earlywashingtondc.org/relationships.ttl>
+WHERE {
+  // query goes here
+}
+{% endhighlight %}
+
+This should look mostly familiar, if you were following along at home with part II, except for the PREFIX declarations at the top.  The prefix is a tool to make things more human readable.  It's much nicer to get a result that says `osrdf:per.000001` rather than one that says `<http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#per.000001>`.
+
+
+If you want to try any of these queries on your own, feel free to visit [the sparqler](http://sparql.org/sparql.html) and paste these queries in (ignore the target graph URI field).  Except in a few cases, the above generic setup should be sufficient if you simply paste in the "WHERE" portion of the query.
+
+![Now we're ready to start querying!]({{ site.url }}assets/2015-10-09/network_rollover_1.png)
+
+<div class="img_caption">
+Now we can create cool stuff like this visualization!  Karin made art for the home page of OSCYS with real data from the project.
+</div>
+
+[Back to top](#contents)
+
+## Direct Connections<a name="immediate"></a>
+
+Alright, let's take a look at probably the simplest SPARQL query behind the scenes of the OSCYS site.  Each person's page has a list of their immediate relationships which is drawn from the TTL.  [Francis Scott Key's page](http://earlywashingtondc.org/people/per.000001) looks something like this:
+
+![F.S. Key's relationships]({{ site.url }}assets/2015-10-09/immediate_relationships.jpg)
+
+<div class="img_caption">
+  Francis did a lot of attorneying, so it would have taken a much larger screenshot to get past "Attorney Against" to the miles of "Attorney For"s.
+</div>
+
+This is the query used to generate the list on [Francis Scott Key's page](http://earlywashingtondc.org/people/per.000001).
+
+{% highlight sparql %}
+PREFIX osrdf: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#>
+PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+
+SELECT *
+FROM <http://earlywashingtondc.org/relationships.ttl>
+WHERE {
+  osrdf:per.000001 ?rel1 ?per1 .
+  ?per1 oscys:fullName ?name1
+}
+ORDER BY ?rel1 ?name1
+{% endhighlight %}
+
+This will return results look something like the following, but in json, which is then manipulated into HTML.
+
+| rel1 | per1 | name1 |
+| ---- | ---- | ----- |
+| oscys:attorneyAgainst | osrdf:per.001177 | "Whiting, Elizabeth" |
+| oscys:attorneyFor | osrdf:per.000474 | "Humphreys, Wood" |
+| oscys:attorneyFor | osrdf:per.000002 | "Ben" |
+| oscys:opposingAttorneys | osrdf:per.000584 | "Bussard, William" |
+
+By default, when you view Key's page, you are presented with the results in HTML along with Key's other information.  However, on any of the people pages in OSCYS you can add `.xml` or `.json` to the end of the URLs to view two different formats.  This is how you would see some different formats for Francis Scott Key's query results:
+
+- [xml results for Key's immediate connections](http://earlywashingtondc.org/people/per.000001.xml)
+- [json results for Key's immediate connections](http://earlywashingtondc.org/people/per.000001.json)
+
+So how does the SPARQL query work?  Let's take a closer look at the query and walk through it.
+
+{% highlight sparql %}
+WHERE {
+  osrdf:per.000001 ?rel1 ?per1 .
+  ?per1 oscys:fullName ?name1
+}
+{% endhighlight %}
+
+In the first line we plug in Key's id, per.000001, in such a way that SPARQL knows we are using an entity from our rdf document.  Remember that we defined the prefix `osrdf` at the top of our query to allow that style of shorthand.  The first line also asks SPARQL to find anything related to Key's identity in the RDF file.  `?rel1` = the relationship and `?per1` = the person (or thing) related to Key.
+
+In the second line, we use that same variable, `?per1` again.  Now we're looking for the fullNames of any of the `?per1` items found on the first line of the query, and anything that matches becomes `?name1`.  If `?per1` doesn't have a fullName, then it is omitted from the results which is probably okay -- we're mostly interested in people who can be identified at least with a name.
+
+![Francis Scott Key and friends watching Fort McHenry's bombardment]({{ site.url }}assets/2015-10-09/key_flag.jpg)
+
+<div class="img_caption">
+An illustration that includes some people with whom Francis Scott Key presumably had a direct connection.
+</div>
+
+<!-- Source of image:  http://www.prattlibrary.org/uploadedImages/www/books_and_media/blog/Pratt_Library_Blog/Key_Flag.jpg -->
+
+[Back to top](#contents)
+
+
+## Network Visualizations<a name="visualization"></a>
+
+In addition to the direct connections, each person has a visualization that looks at their immediate social network.  A person knows a person who knows a person.  That is to say, Mary Bell below is the spouse of Daniel Bell who is the client of Gilbert L Giberson.  Mary knows several individuals who in turn seem to have quite a few connections. This is a screenshot of part of her visualization [here](http://earlywashingtondc.org/people/network/per.001253).
+
+![The network of Mary Bell]({{ site.url }}assets/2015-10-09/mary_bell.jpg)
+
+<div class="img_caption">
+  Mary's network has larger clumps around people she is connected to who are themselves well connected.
+</div>
+
+Some of the people have such large networks that though the SPARQL queries are fast, the JavaScript making the visualization gets a bit sluggish.  Either way, it's a bit overwhelming to take in at a glance, so for that reason we're going to be using Mary Bell as our query subject instead of Francis Scott Key.
+
+![Francis Scott Key's visualization has a LOT of people in it]({{ site.url }}assets/2015-10-09/key_overwhelming.jpg)
+
+<div class="img_caption">
+Francis Scott Key was involved in an awful lot of cases in OSCYS, so he ended up knowing just about everybody.
+</div>
+
+For the visualizations we ask "find the people Bell knows and the people that THOSE people know.  While you're at it, get the type of the relationships and the names of all the people."  As with the direct relationships, you can add `.xml` or `.json` to the end of that URL to view the results used to create the visualization ([xml](http://earlywashingtondc.org/people/network/per.000204.xml)) ([json](http://earlywashingtondc.org/people/network/per.000204.json)).  
+
+There's a lot required from this query.  We want the names and the people once removed from Bell.  We also want to know the type of each relationship so that we can make family ties distinct from, say, legal ties.
+
+The RDF file can tell you that person A is related to person B as "parentOf" but it does not have the right information to tell you that "parentOf" is a family relationship.  That information is stored in the OWL file.  So how do we get around that problem?  The first clue is that our OWL file can be queried with SPARQL the same way that we have been querying the RDF.  Let's try grabbing all the relationships and their corresponding type.  Note that there is an extra prefix at the top in order to get at "subPropertyOf".
+
+{% highlight sparql %}
+PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT *
+FROM <http://earlywashingtondc.org/ontology.owl>
+WHERE {
+  ?relationship rdfs:subPropertyOf ?relationshipType
+}
+{% endhighlight %}
+
+The results we get are probably somewhat predictable.  On the left is a list of specific relationships, on the right is the category that they belong to.
+
+| ?relationship | ?relationshipType |
+| ------------- | ----------------- |
+| oscys:deponentOf | oscys:legalRelationship |
+| oscys:witnessFor | oscys:legalRelationship |
+| oscys:neighborOf | oscys:socialRelationship |
+| oscys:siblingOf | oscys:familyRelationship |
+| oscys:indenturedTo | oscys:workRelationship |
+
+Great, now we just need to combine it with results from the RDF so that we can attach information that says "parentOf" is a family relationship while "attorneyOf" is a legal one, etc.  We can do that by combining the graphs with two FROM clauses.  Here's the whole shebang:
+
+{% highlight sparql %}
+PREFIX osrdf: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#>
+PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT *
+FROM <http://earlywashingtondc.org/relationships.ttl>
+FROM <http://earlywashingtondc.org/ontology.owl>
+WHERE {
+  osrdf:per.001253 ?rel01 ?per1 .
+  OPTIONAL { 
+    ?per1 ?rel12 ?per2 .
+    ?per2 oscys:fullName ?name2 .
+  }
+  osrdf:per.001253 oscys:fullName ?name0 .
+  ?per1 oscys:fullName ?name1 .
+  OPTIONAL { ?rel01 rdfs:subPropertyOf ?rel01type } .
+  OPTIONAL { ?rel12 rdfs:subPropertyOf ?rel12type } .
+  FILTER ( ?per2 != osrdf:per.001253 )
+}
+{% endhighlight %}
+
+The first line of the WHERE clause should look familiar.  `?osrdf:per.001253 ?rel01 ?per1` is just getting a list of everything related in some way to Francis Scott Key.  Then we come across some optional triples.
+
+{% highlight sparql %}
+OPTIONAL {
+  ?per1 ?rel12 ?per2 .
+  ?per2 oscys:fullName ?name2 .
+}
+{% endhighlight %}
+
+Using our findings for the `?per1` variable, we look to find anything related and its fullName.  An example would be "Mary Bell knows Person A and Person A knows Person B whose name is John Marbury."  The second leg is made optional because it is possible that Bell may be connected to somebody who has no other relationships of their own.  Though unlikely, should this situation come up, if the Person A to Person B triple were not optional, it would omit more solitary individuals from the results.
+
+Now it's time for our new OWL query for the relationship types make an appearance, also wrapped in an OPTIONAL.  The subPropertyOf queries are optional because it's possible that a connection has been added for two individuals that hasn't been defined in the OWL file (perhaps a misspelling or a first of its kind relationship).  AttrneyOf [sic] and personalPhysicianOf might not be yet valid according to the OWL file, but we want to make sure that these orphaned relationships still appear in the results or else we may not notice that something needs to be resolved.
+
+{% highlight sparql %}
+OPTIONAL { ?rel01 rdfs:subPropertyOf ?rel01type } .
+OPTIONAL { ?rel12 rdfs:subPropertyOf ?rel12type } .
+{% endhighlight %}
+
+The final line of the query is a FILTER.  The filter is simply avoiding some duplication.  If Person A knows Person B then we can probably assume that Person B knows Person A, too.  We don't need to return Person A in the search results.  If that's the kind of thing that you would like to know, then just remove the FILTER line to view all the results.
+
+Because the type of relationship is returned as part of the query, now you can do things like this!
+
+![Family ties in Bell's network]({{ site.url }}assets/2015-10-09/bell_family.jpg)
+
+<div class="img_caption">
+These are some of the family ties highlighted in Bell's network.  Most of her connections are legal ones, so it is interesting to look at family and social relationships amongst the busy mishmash of the lines.
+</div>
+
+
+[Back to top](#contents)
+
+
+## Connection Types<a name="connections"></a>
+
+You can also look through all of the types of relationships in OSCYS, which is a handy tool if you're particularly interested in families, or slaveholders, or judges, or whatever sort of connection suits your curiosity.  The search is [here](http://earlywashingtondc.org/people/connection_type).  This is example of what the list of people [deposed by](http://earlywashingtondc.org/people/connection_type?utf8=%E2%9C%93&type=deposedBy&commit=Go%21) other people looks like:
+
+![People deposed by other people]({{ site.url }}assets/2015-10-09/deposed_by.jpg)
+
+<div class="img_caption">
+  These people's regimes were all overthrown.  I find it is more interesting to picture that definition than someone testifying in court.
+</div>
+
+This is another pretty straightforward query.  No need to consult an OWL file this time.  Just ask "find a person connected to another person with that relationship."
+
+{% highlight sparql %}
+WHERE { ?per1 oscys:deposedBy ?per2 .
+        ?per1 oscys:fullName ?per1name .
+        ?per2 oscys:fullName ?per2name .
+      }
+{% endhighlight %}
+
+
+
+[Back to top](#contents)
+
+
+## Attorney Search<a name="attorneys"></a>
+
+As attorneys rubbed elbows quite a lot, we built a tool to explore the various interactions between attorneys.  This search looks for immediate connections, attorneys who might have been two removed from each other, and more, all the way up to four people removed.  Some attorneys may not have ever had vague connections with each other, even after several jumps through a social network, which is in itself noteworthy.  Try it out yourself by visiting the [Attorney Relationship Finder of Science](http://earlywashingtondc.org/people/relationships).  
+
+For the purpose of this blogpost, we'll be looking at the ways that Francis Scott Key worked with Elias Boudinot Caldwell who was [an attorney, clerk, War of 1812 vet, and Presbyterian minister](http://www.jstor.org/stable/40067168).
+
+![Elias Boudinot Caldwell]({{ site.url }}assets/2015-10-09/caldwell.jpg)
+
+<div class="img_caption">
+Mr. Caldwell was described by his granddaughter as having "<a href="http://www.jstor.org/stable/40067168">good blood, brains, and enough wealth for those days</a>."
+</div>
+
+<!-- Source of image: http://www.jstor.org/stable/40067168 -->
+
+This is just a small snippet of the ways in which [Francis Scott Key knew Elias Boudinot Caldwell](http://earlywashingtondc.org/people/relationships?utf8=%E2%9C%93&per1id=per.000001&per2id=per.000194&commit=Find+Relationships):
+
+![Immediately and not so immediately relationships]({{ site.url }}assets/2015-10-09/elias_caldwell.jpg)
+
+<div class="img_caption">
+  This goes all the way up to four people apart.  I wouldn't recommend trying it on a mobile screen.
+</div>
+
+I struggled a bit when trying to put together this aspect of the relationship querying.  What I wanted was "given one node, find any possible connections to another given node."  I don't know of a way to do this with SPARQL, and I doubt that it is even possible.  If there is a way, please drop me a line!  Undaunted, I began work on a mega-query that would approximate finding any possible connection by checking for immediate connections, then if that was a bust, trying to find a two removed connection, etc, all the way up to four people removed.  My mega-query was quickly revealed to be a horrible monster.
+
+![Salvador Dali's Persistence of Memory]({{ site.url }}assets/2015-10-09/The_Persistence_of_Memory.jpg)
+
+<div class="img_caption">
+This is how that query made me feel.
+</div>
+
+<!-- Source: https://en.wikipedia.org/wiki/File:The_Persistence_of_Memory.jpg -->
+
+Somewhere in the layers and layers of OPTIONAL clauses, I started losing confidence that my query was actually doing what I wanted it to do.  I also wasn't sure if I cared anymore.  It took an eternity to run (and by that I mean like 8 minutes).  Time to try something else.
+
+Instead of one big query with lots of finicky moving pieces, I decided to send four queries.  It's not perfect, I'm not super excited about it, but it is working so I can't complain too much.  The direct relationship query is the simplest, as you might expect.  It's nearly identical to a query already being used on an individual's page except that in this case, I wanted both a specific starting person and a specific ending person.
+
+{% highlight sparql %}
+WHERE {
+  osrdf:per.000001 ?rel osrdf:per.000194 .
+  osrdf:per.000001 oscys:fullName ?name1 .
+  osrdf:per.000194 oscys:fullName ?name2 
+}
+{% endhighlight %}
+
+Besides the above query for direct relationships, I send queries for two and three connections removed, and then eventually end up with the query for four connections removed.  You'll notice that I'm filtering out some of the relationships.  This is because if Person A knows person B, there's a pretty good chance person B knows person A, too.  It seems silly to have the results show up in big chains of the same people.
+
+{% highlight sparql %}
+WHERE {
+  BIND(osrdf:per.000001 AS ?per1) .
+  BIND(osrdf:per.000194 AS ?goal) .
+  ?per1 ?rel12 ?per2 .
+  ?per2 ?rel23 ?per3 .
+  ?per3 ?rel34 ?per4 .
+  ?per4 ?rel4g ?goal .
+  ?per1 oscys:fullName ?name1 .
+  ?per2 oscys:fullName ?name2 .
+  ?per3 oscys:fullName ?name3 .
+  ?per4 oscys:fullName ?name4 .
+  ?goal oscys:fullName ?nameg .
+  FILTER ( ?per3 != ?per1 ) .
+  FILTER (?per2 != ?per4 )
+  FILTER (?per3 != ?goal )
+}
+{% endhighlight %}
+
+At the top I use BIND to tell SPARQL to use `per.000001` as `?per1` and `per.000194` as `?goal`.  Makes the query look a bit more readable, in my opinion.  After that it's pretty straightforward -- find a person related to Francis Scott Key, then find people that those people know, then find people that those people know, etc.  I'm also returning their names which means that unnamed individuals and their connections will not show up in the results.
+
+![John C. Calhoun]({{ site.url }}assets/2015-10-09/calhoun.jpg)
+
+<div class="img_caption">
+Though this is a bit outside of the scope of OSCYS, Elias Boudinot Caldwell was related to John C. Calhoun (the 'C' stands for 'Caldwell'), and <a href="http://www.jstor.org/stable/40067168">entertained Calhoun for dinner on at least one occasion</a>.  Calhoun was a war hawk, an inspiration to secessionists, and an adamant supporter of slavery, which may have added an interesting dynamic when Caldwell <a href="http://earlywashingtondc.org/people/per.000194">defended several slaves in court</a>.
+</div>
+
+<!-- Source of image: https://upload.wikimedia.org/wikipedia/commons/2/2e/John_C_Calhoun_by_Mathew_Brady%2C_1849.jpg -->
+<!-- Source of relative / entertainer of Calhoun:  
+Sketch of Elias Boudinot Caldwell: Reprint from "American Monthly Magzine"
+Allen C. Clark
+Records of the Columbia Historical Society, Washington, D.C.
+Vol. 24 (1922), pp. 204-213
+Published by: Historical Society of Washington, D.C.
+Stable URL: http://www.jstor.org/stable/40067168
+Page Count: 11 -->
+
+[Back to top](#contents)
+
+## The Future
+
+These are just a sampling of the types of questions we can be asking of our RDF data.  We could potentially use it to construct family trees.  Maybe there would be something interesting revealed if we looked at networks of people related to a specific case.  If we marked up other aspects of the OSCYS data besides the people (like locations, cases, events), there might be even more fascinating connections to find.
+
+![Family Blobs]({{ site.url }}assets/2015-10-09/family.jpg)
+
+<div class="img_caption">
+  The above is an image taken from an early experiment to visualize family networks.
+</div>
+
+Additionally, something we haven't explored much is linking our data to external sources.  We did go so far as to include oscys:sameAs in order to point at [Virtual International Authority Files](http://viaf.org/), for the very few individuals who have VIAF records.
+
+| ?per | ?name | ?info |
+| ---- | ------ | ----- |
+| osrdf:per.000738 | Brent, William Leigh | https://viaf.org/viaf/38728091 |
+| osrdf:per.000004 | Cranch, William | https://viaf.org/viaf/27114318 |
+| osrdf:per.000003 | Brent, William | https://viaf.org/viaf/18936621 |
+| osrdf:per.000001 | Key, Francis Scott | https://viaf.org/viaf/824500 |
+
+That brings an end to a longwinded blogpost about the queries that are working behind the scenes for OSCYS.  In the next installment, I'll be talking about how I chose to query RDF with Fuseki from the Ruby on Rails framework!

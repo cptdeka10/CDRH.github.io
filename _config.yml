@@ -10,5 +10,10 @@ url: "http://cdrh.github.io/" # the base hostname & protocol for your site
 twitter_username: CDRH_UNL
 github_username:  CDRH
 
+# Gems
+gems: [jekyll-paginate]
+
 # Build settings
 markdown: kramdown
+paginate: 5               # number of posts per page
+paginate_path: "/:num/"

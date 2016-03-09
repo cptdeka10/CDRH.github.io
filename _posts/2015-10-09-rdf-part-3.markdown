@@ -373,3 +373,5 @@ Additionally, something we haven't explored much is linking our data to external
 | osrdf:per.000001 | Key, Francis Scott | https://viaf.org/viaf/824500 |
 
 That brings an end to a longwinded blogpost about the queries that are working behind the scenes for OSCYS.  In the next installment, I'll be talking about how I chose to query RDF with Fuseki from the Ruby on Rails framework!
+
+[Part III](http://cdrh.github.io/oscys/rdf/sparql/2015/10/09/rdf-part-3.html)

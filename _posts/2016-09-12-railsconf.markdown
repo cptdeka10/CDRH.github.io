@@ -24,7 +24,7 @@ I was happy to get my history fix in when one of the keynotes addressed dev team
 
 Here are some of the talks which I found very interesting.  I'm sure that Karin and Greg have more they would recommend, too!
 
-####[Making a Rails App with 140 Characters (or less) by Nate Berkopec](https://www.youtube.com/watch?v=SXV-RRsjsFc&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=4)
+##[Making a Rails App with 140 Characters (or less) by Nate Berkopec](https://www.youtube.com/watch?v=SXV-RRsjsFc&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=4)
 
 [Link to video](https://www.youtube.com/watch?v=SXV-RRsjsFc&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=4)
 
@@ -39,13 +39,13 @@ rackup \
 <div class="img_caption">"All this application can do is serve empty 404 responses.  But it is a Rails application!!!" -- Nate Berkopec</div>
 
 
-####[Multi-table Full Text Search with Postgres by Caleb Thompson](https://www.youtube.com/watch?v=OzHhJPlgZaw&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=27)
+##[Multi-table Full Text Search with Postgres by Caleb Thompson](https://www.youtube.com/watch?v=OzHhJPlgZaw&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=27)
 
 [Link to video](https://www.youtube.com/watch?v=OzHhJPlgZaw&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=27)
 
 This is one that is noteworthy because I ....pretty much completely disagreed with the presenter.  Thompson did an admirable job connecting tables in a massive query that I surely would have struggled with substantially, but the whole time I was thinking "why don't you just use Solr or Elasticsearch?"  He did address them at the end, but said he didn't want to use tools like Solr or ES because it would add to the technology stack (true) and that then you need additional steps to populate them and keep them in sync with your databases (also true).  However, at a certain point, it seems like the time spent upfront getting one of those types of tools set up would vastly outweigh running gigando queries constantly.  I might be biased since we use Solr quite a bit here.
 
-####[RSpec and Rails 5 by Justin Searls](https://www.youtube.com/watch?v=vntVoC5uSYk&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=82)
+##[RSpec and Rails 5 by Justin Searls](https://www.youtube.com/watch?v=vntVoC5uSYk&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=82)
 
 [Link to video](https://www.youtube.com/watch?v=vntVoC5uSYk&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=82)
 
@@ -62,7 +62,7 @@ Searls is concerned that as it ages, Rails will no longer have the vibrant commu
 <div class="img_caption">"Sprockets, why did it have to be sprockets?" - from Richard Schneeman's talk titled <a href="https://www.youtube.com/watch?v=imE397wVWgY">Saving Sprockets</a></div>
 <!-- image source: http://www.sandimetz.com/99bottles -->
 
-####[Succession by Katrina Owen](https://www.youtube.com/watch?v=59YClXmkCVM&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=81)
+##[Succession by Katrina Owen](https://www.youtube.com/watch?v=59YClXmkCVM&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=81)
 
 [Link to video](https://www.youtube.com/watch?v=59YClXmkCVM&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=81)
 
@@ -76,7 +76,7 @@ Owen is also the creator of [Exercism](http://exercism.io/) which provides inter
 <div class="img_caption">It has a pretty sweet logo, too.</div>
 <!-- image source: http://exercism.io/icons/logo.svg -->
 
-####[Get a Whiff of This by Sandi Metz](https://www.youtube.com/watch?v=PJjHfa5yxlU&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=78)
+##[Get a Whiff of This by Sandi Metz](https://www.youtube.com/watch?v=PJjHfa5yxlU&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=78)
 
 [Link to video](https://www.youtube.com/watch?v=PJjHfa5yxlU&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=78)
 
@@ -91,7 +91,7 @@ I was vaguely familiar with the term "code smell" but I didn't know much about i
 <div class="img_caption">Since I liked Metz and Owen on their own, I'm guessing that <a href="http://www.sandimetz.com/99bottles">their book</a> is AWESOME.</div>
 <!-- image source: http://www.sandimetz.com/99bottles -->
 
-####[Closing Keynote by Paul Lamere of Spotify](https://www.youtube.com/watch?v=f7XN3RuDzmc&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=89)
+##[Closing Keynote by Paul Lamere of Spotify](https://www.youtube.com/watch?v=f7XN3RuDzmc&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=89)
 
 [Link to video](https://www.youtube.com/watch?v=f7XN3RuDzmc&list=PLE7tQUdRKcyZGYLfj6oRQWPxB6ijg1YsC&index=89)
 

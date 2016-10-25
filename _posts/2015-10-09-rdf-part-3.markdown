@@ -57,17 +57,17 @@ This is what a typical query setup looks like for OSCYS:
 
 {% highlight sparql %}
 
-PREFIX osrdf: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#>
-PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+PREFIX osrdf: <http://earlywashingtondc.org/rdf/oscys.relationships#>
+PREFIX oscys: <http://earlywashingtondc.org/rdf/oscys.objectproperties.owl#>
 
 SELECT *
-FROM <http://earlywashingtondc.org/relationships.ttl>
+FROM <http://earlywashingtondc.org/rdf/oscys.relationships.ttl>
 WHERE {
   // query goes here
 }
 {% endhighlight %}
 
-This should look mostly familiar, if you were following along at home with part II, except for the PREFIX declarations at the top.  The prefix is a tool to make things more human readable.  It's much nicer to get a result that says `osrdf:per.000001` rather than one that says `<http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#per.000001>`.
+This should look mostly familiar, if you were following along at home with part II, except for the PREFIX declarations at the top.  The prefix is a tool to make things more human readable.  It's much nicer to get a result that says `osrdf:per.000001` rather than one that says `<http://earlywashingtondc.org/rdf/oscys.relationships#per.000001>`.
 
 
 If you want to try any of these queries on your own, feel free to visit [the sparqler](http://sparql.org/sparql.html) and paste these queries in (ignore the target graph URI field).  Except in a few cases, the above generic setup should be sufficient if you simply paste in the "WHERE" portion of the query.
@@ -93,11 +93,11 @@ Alright, let's take a look at probably the simplest SPARQL query behind the scen
 This is the query used to generate the list on [Francis Scott Key's page](http://earlywashingtondc.org/people/per.000001).
 
 {% highlight sparql %}
-PREFIX osrdf: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#>
-PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+PREFIX osrdf: <http://earlywashingtondc.org/rdf/oscys.relationships#>
+PREFIX oscys: <http://earlywashingtondc.org/rdf/oscys.objectproperties.owl#>
 
 SELECT *
-FROM <http://earlywashingtondc.org/relationships.ttl>
+FROM <http://earlywashingtondc.org/rdf/oscys.relationships.ttl>
 WHERE {
   osrdf:per.000001 ?rel1 ?per1 .
   ?per1 oscys:fullName ?name1
@@ -168,11 +168,11 @@ There's a lot required from this query.  We want the names and the people once r
 The RDF file can tell you that person A is related to person B as "parentOf" but it does not have the right information to tell you that "parentOf" is a family relationship.  That information is stored in the OWL file.  So how do we get around that problem?  The first clue is that our OWL file can be queried with SPARQL the same way that we have been querying the RDF.  Let's try grabbing all the relationships and their corresponding type.  Note that there is an extra prefix at the top in order to get at "subPropertyOf".
 
 {% highlight sparql %}
-PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+PREFIX oscys: <http://earlywashingtondc.org/rdf/oscys.objectproperties.owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT *
-FROM <http://earlywashingtondc.org/ontology.owl>
+FROM <http://earlywashingtondc.org/rdf/oscys.objectproperties.owl>
 WHERE {
   ?relationship rdfs:subPropertyOf ?relationshipType
 }
@@ -191,13 +191,13 @@ The results we get are probably somewhat predictable.  On the left is a list of 
 Great, now we just need to combine it with results from the RDF so that we can attach information that says "parentOf" is a family relationship while "attorneyOf" is a legal one, etc.  We can do that by combining the graphs with two FROM clauses.  Here's the whole shebang:
 
 {% highlight sparql %}
-PREFIX osrdf: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.relationships#>
-PREFIX oscys: <http://cdrhsites.unl.edu/data/projects/oscys/rdf/oscys.objectproperties.owl#>
+PREFIX osrdf: <http://earlywashingtondc.org/rdf/oscys.relationships#>
+PREFIX oscys: <http://earlywashingtondc.org/rdf/oscys.objectproperties.owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT *
-FROM <http://earlywashingtondc.org/relationships.ttl>
-FROM <http://earlywashingtondc.org/ontology.owl>
+FROM <http://earlywashingtondc.org/rdf/oscys.relationships.ttl>
+FROM <http://earlywashingtondc.org/rdf/oscys.objectproperties.owl>
 WHERE {
   osrdf:per.001253 ?rel01 ?per1 .
   OPTIONAL { 

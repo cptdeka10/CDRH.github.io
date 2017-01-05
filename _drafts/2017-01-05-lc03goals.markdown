@@ -18,7 +18,7 @@ A searchable map will be an invaluable resource for any Lewis and Clark scholar.
 
 ### Additional Visualizations
 
-The *Journals of the Lewis and Clark Expedition* is a data set with numerous possibilities for data visualization. Brian Pytlik Zillig has started this work with his [TokenX implementation](http://tokenx.unl.edu/lewisandclark/), but much more could be done now that we have divided entries by author. For example, we could use d3.js or another visual library to explore word use over time or by author. 
+The *[Journals of the Lewis and Clark Expedition](https://lewisandclarkjournals.unl.edu)* is a data set with numerous possibilities for data visualization. Brian Pytlik Zillig has started this work with his [TokenX implementation](http://tokenx.unl.edu/lewisandclark/), but much more could be done now that we have divided entries by author. For example, we could use d3.js or another visual library to explore word use over time or by author.
 
 We’d love to enhance the calendar view by allowing users to refine and visualize entries by author or other terms. We could also correlate the length of entries to different points of the journey. Much can be done to give users an idea of the overall shape of the expedition.
 

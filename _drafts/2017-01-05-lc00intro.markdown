@@ -8,13 +8,15 @@ author: Karin Dalziel, Jessica Dussault, Greg Tunink, Laura Weakly, Brian Pytlik
 
 The [Center for Digital Research in the Humanities](http://cdrh.unl.edu), in collaboration with the [University of Nebraska Press](http://nebraskapress.unl.edu), has recently redesigned and relaunched the award-winning *[Journals of the Lewis and Clark Expedition](https://lewisandclarkjournals.unl.edu)*. This relaunch keeps all of the previous features of the website, but enhances navigation and searching features as well as implements a mobile-friendly and accessible design.
 
-![Before and After Screenshots]({{ site.url }}assets/2017-01-05/image08.png) 
+![Before and After Screenshots]({{ site.url }}assets/2017-01-05/image08.png)
+
+<div class="img_caption">Screenshots from before (left) and after (right) the transformation</div>
 
 Originally funded by the National Endowment for the Humanities in 2003 and completed in 2006, the site was created using the technologies of the time: Extensible Markup Language according to the [Text Encoding Initiative](http://www.tei-c.org/index.xml)’s [P4](http://www.tei-c.org/Vault/P4/) guidelines for the texts, and Tamino Information Server for XSL transformations (XSLT). Around 2007, the site was reengineered in PHP/Solr, as the University Libraries moved away from Tamino and toward embracing open source technology. Over the years, various parts of the site stopped functioning, and developer time to fix bugs was increasing. In addition, the user experience of the website, especially on mobile or very large screens, did not meet our current standards.
 
-In October and November of 2016, the Center scheduled time fully devoted to redevelop and relaunch the *Journals of the Lewis and Clark Expedition*. 
+In October and November of 2016, the Center scheduled time fully devoted to redevelop and relaunch the *Journals of the Lewis and Clark Expedition*.
 
-The following posts explain our process and our goals for the future. 
+The following posts explain our process and our goals for the future.
 
 * Part 0: Introduction
 * [Part 1: Migrating XML and Building the Index](lc01xml.html)

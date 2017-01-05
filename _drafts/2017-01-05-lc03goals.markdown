@@ -24,7 +24,7 @@ We’d love to enhance the calendar view by allowing users to refine and visuali
 
 ![Calendar]({{ site.url }}assets/2017-01-05/image11.png) 
 
-<div class="img_caption">Calendar Visualization Mockup</div>
+<div class="img_caption">Calendar visualization mockup</div>
 
 ### “This day in…” Feature
 

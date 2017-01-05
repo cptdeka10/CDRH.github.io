@@ -66,7 +66,7 @@ We used [Bootstrap](https://getbootstrap.com/) (v3) for the front end framework 
 
 ![Mobile example]({{ site.url }}assets/2017-01-05/image06.png) 
 
-<div class="img_caption">Left, original site, not designed for mobile  devices. Right, reformats easily.</div>
+<div class="img_caption">Left, original site, not designed for mobile  devices. Right, new site, reformats easily.</div>
 
 When it came to the design, we looked closely at the original printed volumes, which informed font choice, color, and, of course, the distinctive “ribbon” element used along the top of the site. Color inspiration was also drawn from the original site. Soft, muted colors with high contrast were chosen for visibility and readability. Layouts were kept intentionally simple for readability. 
 
@@ -109,7 +109,7 @@ Since the *Journals of the Lewis and Clark Expedition* website is cited frequent
 
 The URL rewriting rules are managed in a YAML config file so new ones can be easily added as we find broken links. 
 
-```YAML
+```yaml
 # Multimedia
 -
     method:     r301

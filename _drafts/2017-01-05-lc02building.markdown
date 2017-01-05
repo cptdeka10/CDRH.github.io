@@ -20,9 +20,7 @@ Since the initial design of the *Journals of the Lewis and Clark Expedition* in 
 
 The old site had used navigational flyout JavaScript which was not compatible with new browsers and was difficult to use, especially for low mobility users. With the new navigation, we simplified both the terminology and number of items in the main navigation, and made subpages clear and easy to follow. 
 
-
-
-<table><thead><tr>
+<table class="center_table heading_table"><thead><tr>
 <th>Old Navigation</th>
 <th>New Navigation</th>
 </tr></thead>

@@ -10,9 +10,9 @@ We laid out a fairly ambitious work plan for 6-8 weeks, so it’s unsurprising w
 
 ## Map
 
-A searchable map will be an invaluable resource for any Lewis and Clark scholar. We have completed a proof of concept, but there is much left to do: double check the data for accuracy and completeness, design an interface for browsing and returning entries, and finding a way to populate the map that balances completeness with the ability of the browser to load everything at once. It would be ideal to have historic maps to georectify as well, as many natural features (notably rivers) have moved since the expedition was made. 
+A searchable map will be an invaluable resource for any Lewis and Clark scholar. We have completed a proof of concept, but there is much left to do: double check the data for accuracy and completeness, design an interface for browsing and returning entries, and finding a way to populate the map that balances completeness with the ability of the browser to load everything at once. It would be ideal to have historic maps to georectify as well, as many natural features (notably rivers) have moved since the expedition was made.
 
-![Map]({{ site.url }}assets/2017-01-05/image07.png) 
+![Map]({{ site.url }}assets/2017-01-05/image07.png)
 
 <div class="img_caption">Map proof of concept</div>
 
@@ -22,7 +22,7 @@ The *[Journals of the Lewis and Clark Expedition](https://lewisandclarkjournals.
 
 We’d love to enhance the calendar view by allowing users to refine and visualize entries by author or other terms. We could also correlate the length of entries to different points of the journey. Much can be done to give users an idea of the overall shape of the expedition.
 
-![Calendar]({{ site.url }}assets/2017-01-05/image11.png) 
+![Calendar]({{ site.url }}assets/2017-01-05/image11.png)
 
 <div class="img_caption">Calendar visualization mockup</div>
 
@@ -30,7 +30,7 @@ We’d love to enhance the calendar view by allowing users to refine and visuali
 
 One widget we would like to build is a “this day in” feature which would pull the journal entries from the current month and day and display them in an attractive manner.
 
-![This day in...]({{ site.url }}assets/2017-01-05/image09.png) 
+![This day in...]({{ site.url }}assets/2017-01-05/image09.png)
 
 <div class="img_caption">Mockup of “this day in…” feature</div>
 

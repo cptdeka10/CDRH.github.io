@@ -1,0 +1,67 @@
+---
+layout: post
+title:  "Lewis and Clark Part 1: Migrating XML and Building the Index"
+date:   2017-01-05 09:00
+categories: migration
+author: Karin Dalziel, Jessica Dussault, Greg Tunink, Laura Weakly, Brian Pytlik Zillig
+---
+
+In early 2016, Brian Pytlik Zillig ran the P4 TEI XML files through his transformation tool [Abbot](http://abbot.unl.edu) to migrate the documents from P4 to the current [P5](http://www.tei-c.org/Guidelines/P5/) standard. A custom configuration was developed for the project XML texts that accounted for any and all differences between the original and the subsequent P5 specification. This configuration file, itself crafted in XML, was ingested and used by the Abbot application for the batch conversion. Here is a simple example for the conversion of xref to ref:
+
+```
+<transformation type="xslt" activate="yes">
+   <desc>Convert xref to ref. </desc>
+   <xsl:template match="xref[not(@targType)]" priority="10">
+    <xsl:element name="ref" namespace="{$user-supplied-namespace}">
+      <xsl:if test="@url">
+          <xsl:attribute name="target">
+            <xsl:value-of select="@url"/>
+          </xsl:attribute>
+      </xsl:if>
+      <xsl:copy-of select="@*[name() !='url']"/>
+      <xsl:apply-templates/>
+    </xsl:element>
+   </xsl:template>
+</transformation>
+```
+
+A host of XSLT scripts then checked the xml:ids, and added topics, entry xml:ids, and author xml:ids. In addition, we added keywords to the `<teiHeader>` of each file to indicate whether the file was an entry written by Lewis and Clark or one of the enlisted men, or whether it was part of the supplementary materials.
+
+One of the major additions to the TEI XML files is the inclusion of latitude and longitude information for each place Lewis and Clark stopped along the journey. Two student assistants, Daniel Dwiggins and Sara Duke, researched each location and entered the geographic information into a spreadsheet. By the time we started working on the *Lewis and Clark* site, the students had finished entering the location data into the spreadsheet, and the P5 TEI encoded files had been transformed. At that point, we used scripts to inject the geographical data from spreadsheets directly into the TEI.
+
+```XML
+<geoDecl datum="WGS" xml:id="lc.geo.1804-08-01.01">
+<placeName/>
+<geo>41.468 -95.9934</geo>
+<note>
+Near Fort Calhoun, NE, about 15 miles north of Omaha. Stayed here until 1804-08-03
+</note>
+</geoDecl>
+
+```
+
+CDRH student researchers are still in the process of confirming the data as entered into each TEI file and it is our hope to use this data to provide a map to accompany the journals (see [Part 3: Future Goals](lc03goals.html)).
+
+## Populating the Index
+
+For many Center projects, we use [Apache Solr](https://lucene.apache.org/solr/) to provide not only searching, but the majority of a site’s navigation. We add document metadata (author, date, etc.) to a Solr index, along with any full text we'd like the user to be able to search.
+
+In order to power this site's navigation and searching functionality, we populated a Solr index with needed fields. We used a [schema developed for CDRH projects](https://github.com/CDRH/data/blob/master/schema.md).  Previous work on our [data repository](https://github.com/CDRH/data)] standardizes index population. The streamlined process of pulling information out of XML files for use in Solr is, if not trivial, at least somewhat straightforward. 
+
+In addition to the standardized schema, we added some project-specific fields, such as  “native_nation.” Because of the spelling irregularities encountered in the Lewis and Clark journals, all people, places, and Native American nations have been regularized in the encoding. 
+
+The previous encoding of journal entries helped populate index fields in Solr. To power the search, two main distinctions were made in the fields: “all” and “journalfile.” This lets users search through all site content (including introduction, about section, and additional texts) and the text of the journals, or search only the journals. 
+
+![Screenshot of spreadsheet]({{ site.url }}assets/2017-01-05/image01.png) 
+
+One big difference between the old Lewis and Clark site and the new is that text is now indexed by journal *entry* rather than journal *date*. Each TEI file still contains all journal entries written on each date, no matter which of the journal writers wrote it. However, when indexing for the new site, we split up each entry into separate items. The main advantage of this is that users can now search or facet by a particular journal author, so, for example, if a user is interested in searching for only entries written by John Ordway, they may do so. This approach also will aid with text analysis and mapping, two future components (see [Part 3: Future Goals](lc03goals.html)).
+
+![Screenshot of author search]({{ site.url }}assets/2017-01-05/image10.png) 
+
+<div class="img_caption">Ability to search by author on journals page.</div>
+
+* [Part 0: Introduction](lc00intro.html)
+* Part 1: Migrating XML and Building the Index
+* [Part 2: Building the Site](lc02building.html)
+* [Part 3: Future Goals](lc03goals.html)
+

@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "Lewis and Clark Part 3: Future Goals"
+date:   2017-01-05 11:00
+categories: migration
+author: Karin Dalziel, Jessica Dussault, Greg Tunink, Laura Weakly, Brian Pytlik Zillig
+---
+
+We laid out a fairly ambitious work plan for 6-8 weeks, so it’s unsurprising we could not finish everything we hoped to accomplish. We have a host of features to add, and have laid the groundwork for their addition.
+
+## Map
+
+A searchable map will be an invaluable resource for any Lewis and Clark scholar. We have completed a proof of concept, but there is much left to do: double check the data for accuracy and completeness, design an interface for browsing and returning entries, and finding a way to populate the map that balances completeness with the ability of the browser to load everything at once. It would be ideal to have historic maps to georectify as well, as many natural features (notably rivers) have moved since the expedition was made. 
+
+![Map]({{ site.url }}assets/2017-01-05/image07.png) 
+
+<div class="img_caption">Map proof of concept</div>
+
+### Additional Visualizations
+
+The *Journals of the Lewis and Clark Expedition* is a data set with numerous possibilities for data visualization. Brian Pytlik Zillig has started this work with his [TokenX implementation](http://tokenx.unl.edu/lewisandclark/), but much more could be done now that we have divided entries by author. For example, we could use d3.js or another visual library to explore word use over time or by author. 
+
+We’d love to enhance the calendar view by allowing users to refine and visualize entries by author or other terms. We could also correlate the length of entries to different points of the journey. Much can be done to give users an idea of the overall shape of the expedition.
+
+![Calendar]({{ site.url }}assets/2017-01-05/image11.png) 
+
+<div class="img_caption">Calendar Visualization Mockup</div>
+
+### “This day in…” Feature
+
+One widget we would like to build is a “this day in” feature which would pull the journal entries from the current month and day and display them in an attractive manner.
+
+![This day in...]({{ site.url }}assets/2017-01-05/image09.png) 
+
+<div class="img_caption">Mockup of “this day in…” feature</div>
+
+### Conclusion
+As one of the premiere projects of the Center for Digital Research in the Humanities, the *Journals of the Lewis and Clark Expedition* is viewed by thousands of scholars, enthusiasts, and school children from around the globe each year. It is our hope that this newly designed site will enhance their experience and enable new areas for exploration of these invaluable journals.
+
+* [Part 0: Introduction](lc00intro.html)
+* [Part 1: Migrating XML and Building the Index](lc01xml.html)
+* [Part 2: Building the Site](lc02building.html)
+* Part 3: Future Goals

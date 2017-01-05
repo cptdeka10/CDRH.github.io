@@ -6,7 +6,7 @@ categories: migration
 author: Karin Dalziel, Jessica Dussault, Greg Tunink, Laura Weakly, Brian Pytlik Zillig
 ---
 
-The [Center for Digital Research in the Humanities](http://cdrh.unl.edu), in collaboration with the [University of Nebraska Press](http://nebraskapress.unl.edu), has recently redesigned and relaunched the award-winning *[Journals of the Lewis and Clark Expedition](http://lewsiandclarkjournals.unl.edu)*. This relaunch keeps all of the previous features of the website, but enhances navigation and searching features as well as implements a mobile-friendly and accessible design.
+The [Center for Digital Research in the Humanities](http://cdrh.unl.edu), in collaboration with the [University of Nebraska Press](http://nebraskapress.unl.edu), has recently redesigned and relaunched the award-winning *[Journals of the Lewis and Clark Expedition](https://lewisandclarkjournals.unl.edu)*. This relaunch keeps all of the previous features of the website, but enhances navigation and searching features as well as implements a mobile-friendly and accessible design.
 
 ![Before and After Screenshots]({{ site.url }}assets/2017-01-05/image08.png) 
 

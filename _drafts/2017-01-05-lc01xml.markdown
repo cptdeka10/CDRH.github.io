@@ -6,7 +6,7 @@ categories: migration
 author: Karin Dalziel, Jessica Dussault, Greg Tunink, Laura Weakly, Brian Pytlik Zillig
 ---
 
-In early 2016, Brian Pytlik Zillig ran the P4 TEI XML files through his transformation tool [Abbot](http://abbot.unl.edu) to migrate the documents from P4 to the current [P5](http://www.tei-c.org/Guidelines/P5/) standard. A custom configuration was developed for the project XML texts that accounted for any and all differences between the original and the subsequent P5 specification. This configuration file, itself crafted in XML, was ingested and used by the Abbot application for the batch conversion. Here is a simple example for the conversion of xref to ref:
+In early 2016, Brian Pytlik Zillig ran the *[Journals of the Lewis and Clark Expedition](https://lewisandclarkjournals.unl.edu)* P4 TEI XML files through his transformation tool [Abbot](http://abbot.unl.edu) to migrate the documents from P4 to the current [P5](http://www.tei-c.org/Guidelines/P5/) standard. A custom configuration was developed for the project XML texts that accounted for any and all differences between the original and the subsequent P5 specification. This configuration file, itself crafted in XML, was ingested and used by the Abbot application for the batch conversion. Here is a simple example for the conversion of xref to ref:
 
 ```
 <transformation type="xslt" activate="yes">

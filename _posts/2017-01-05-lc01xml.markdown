@@ -46,7 +46,7 @@ CDRH student researchers are still in the process of confirming the data as ente
 
 For many Center projects, we use [Apache Solr](https://lucene.apache.org/solr/) to provide not only searching, but the majority of a site’s navigation. We add document metadata (author, date, etc.) to a Solr index, along with any full text we'd like the user to be able to search.
 
-In order to power this site's navigation and searching functionality, we populated a Solr index with needed fields. We used a [schema developed for CDRH projects](https://github.com/CDRH/data/blob/master/schema.md).  Previous work on our [data repository](https://github.com/CDRH/data)] standardizes index population. The streamlined process of pulling information out of XML files for use in Solr is, if not trivial, at least somewhat straightforward.
+In order to power this site's navigation and searching functionality, we populated a Solr index with needed fields. We used a [schema developed for CDRH projects](https://github.com/CDRH/data/blob/master/schema.md).  Previous work on our [data repository](https://github.com/CDRH/data) standardizes index population. The streamlined process of pulling information out of XML files for use in Solr is, if not trivial, at least somewhat straightforward.
 
 In addition to the standardized schema, we added some project-specific fields, such as  “native_nation.” Because of the spelling irregularities encountered in the Lewis and Clark journals, all people, places, and Native American nations have been regularized in the encoding.
 
@@ -62,7 +62,7 @@ One big difference between the old Lewis and Clark site and the new is that text
 
 <div class="img_caption">Filter by entry authors for browsing and searching</div>
 
-* [Part 0: Introduction](lc00intro.html)
+* [Introduction](lc00intro.html)
 * Part 1: Migrating XML and Building the Index
 * [Part 2: Building the Site](lc02building.html)
 * [Part 3: Future Goals](lc03goals.html)

@@ -37,7 +37,7 @@ One widget we would like to build is a “this day in” feature which would pul
 ### Conclusion
 As one of the premiere projects of the Center for Digital Research in the Humanities, the *Journals of the Lewis and Clark Expedition* is viewed by thousands of scholars, enthusiasts, and school children from around the globe each year. It is our hope that this newly designed site will enhance their experience and enable new areas for exploration of these invaluable journals.
 
-* [Part 0: Introduction](lc00intro.html)
+* [Introduction](lc00intro.html)
 * [Part 1: Migrating XML and Building the Index](lc01xml.html)
 * [Part 2: Building the Site](lc02building.html)
 * Part 3: Future Goals

@@ -16,7 +16,7 @@ The XSLT to transform the TEI into HTML was re-written, to allow for the changes
 
 ## Reworking the Design and Navigation
 
-Since the initial design of the *[Journals of the Lewis and Clark Expedition](https://lewisandclarkjournals.unl.edu)* in 2003, computer monitors have gotten bigger and more browsing than ever now done on small mobile screens. Because of this, new best practices around navigation and site layout have emerged. In order to meet these best practices, we opted for a simplified navigational scheme and we dropped the sidebar navigation. New fonts were chosen, and the font size was set to a new, larger default.
+Since the initial design of the *[Journals of the Lewis and Clark Expedition](https://lewisandclarkjournals.unl.edu)* in 2003, computer monitors have gotten bigger and more browsing than ever is now done on small mobile screens. Because of this, new best practices around navigation and site layout have emerged. In order to meet these best practices, we opted for a simplified navigational scheme and we dropped the sidebar navigation. New fonts were chosen, and the font size was set to a new, larger default.
 
 The old site had used navigational flyout JavaScript which was not compatible with new browsers and was difficult to use, especially for low mobility users. With the new navigation, we simplified both the terminology and number of items in the main navigation, and made subpages clear and easy to follow.
 
@@ -122,9 +122,9 @@ The URL rewriting rules are managed in a YAML config file so new ones can be eas
     from:       !ruby/regexp /^\/item\/(white.+?)(?:\.xml)?$/
     to:         /item/lc.mult.$1
 ```
-We plan to update old links to the new ones as time allows, for example resubmitting to NINES, but at least links aren’t broken in the meantime. And, of course, links found in printed publications can still be reached.
+We plan to update old links to the new ones as time allows, for example resubmitting to [NINES](http://www.nines.org/), but at least links aren’t broken in the meantime. And, of course, links found in printed publications can still be reached.
 
-* [Part 0: Introduction](lc00intro.html)
+* [Introduction](lc00intro.html)
 * [Part 1: Migrating XML and Building the Index](lc01xml.html)
 * Part 2: Building the Site
 * [Part 3: Future Goals](lc03goals.html)

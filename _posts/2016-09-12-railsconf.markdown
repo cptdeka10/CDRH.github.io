@@ -4,6 +4,7 @@ title:  "Rails Conf 2016"
 date:   2016-09-12 13:00
 categories: conference rails
 author: Jessica Dussault
+redirect_to: http://cdrhdev.unl.edu/log/2016/rails-conf-2016/
 ---
 
 I've been sitting on this blog post for several months now, so my apologies for a rather late update!  In May the dev team (Karin, Greg, and I) headed to Kansas City for the Ruby on Rails 2016 conference.

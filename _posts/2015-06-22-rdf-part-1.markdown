@@ -4,6 +4,7 @@ title: "Figuring out RDF and SPARQL: Part I Triples"
 date: 2015-06-22 14:46
 categories: oscys rdf
 author: Jessica Dussault
+redirect_to: http://cdrhdev.unl.edu/log/2015/rdf-sparql-1/
 ---
 
 Linked Data.  The Semantic Web.  A lot of those terms have been rattling around in my brain for years, picked up from various digital humanities events and lectures.  We started on a new project that hopes to use linked data to analyze relationships between hundreds of individuals.  Theoretically, I understood what this meant, but practically I had absolutely no idea how to start implementing it.  

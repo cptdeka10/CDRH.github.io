@@ -1,4 +1,8 @@
 # CDRH.github.io
+
+**This repository is no longer maintained. For the up-to-date CDRH Development Blog, please see: cdrhdev.unl.edu/log**
+
+
 Blog and Organization Pages for the Center for Digital Research in the Humanities at the University of Nebraska-Lincoln
 
 To get this up and running locally:

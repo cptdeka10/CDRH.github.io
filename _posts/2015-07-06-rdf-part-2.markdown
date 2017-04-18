@@ -4,6 +4,7 @@ title: "Figuring out RDF and SPARQL: Part II Getting Set Up"
 date: 2015-07-06 10:59
 categories: oscys rdf sparql
 author: Jessica Dussault
+redirect_to: http://cdrhdev.unl.edu/log/2015/rdf-sparql-2/
 ---
 
 In [Part I](http://cdrh.github.io/oscys/rdf/2015/06/22/rdf-part-1.html) of the RDF crash course, I provided some examples of the types of information that you can get out of an RDF file.  I stopped just at the point where the floor was falling out from under me in other tutorials.  Right after explaining the basics of describing the data, suddenly tutorials would start throwing down mad SPARQL queries, SPARQL being to RDF what SQL is to relational databases.  But....how?  You don't just magically start querying a document.  That's like showing people some sample data and then saying "now try this SQL!"  That won't get you anywhere if you don't have a database set up and even if you have a database, you have to know how to send SQL its way.

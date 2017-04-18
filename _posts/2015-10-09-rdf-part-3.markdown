@@ -4,6 +4,7 @@ title:  "Figuring out RDF and SPARQL: Part III Some Queries"
 date:   2015-10-09 10:00
 categories: oscys rdf sparql
 author: Jessica Dussault
+redirect_to: http://cdrhdev.unl.edu/log/2015/rdf-sparql-3/
 ---
 
 In [part II](http://cdrh.github.io/oscys/rdf/sparql/2015/07/06/rdf-part-2.html) of this series, we learned how to run a basic query on some RDF.  In this part, I'll be explaining some of the queries that we are running behind the scenes to power the [O Say Can You See website](http://earlywashingtondc.org).  This post needs a theme, and one of the better known individuals from the project is Francis Scott Key, so let's all welcome him to the stage.

@@ -11,7 +11,9 @@ twitter_username: CDRH_UNL
 github_username:  CDRH
 
 # Gems
-gems: [jekyll-paginate]
+gems:
+  - jekyll-paginate
+  - jekyll-redirect-from
 
 # Build settings
 markdown: kramdown

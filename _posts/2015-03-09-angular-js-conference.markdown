@@ -4,6 +4,7 @@ title:  "ng-conf 2015 Live Streaming"
 date:   2015-03-09 10:00
 categories: conference
 author: Jessica Dussault
+redirect_to: http://cdrhdev.unl.edu/log/2015/ng-conf-2015/
 ---
 
 Thursday, I took a road trip to Omaha to watch the [ng-conf](http://www.ng-conf.org/) (angular.js conference) with some nice folks from [The Garage by Aviture](http://garagebyaviture.com/).  I have very little experience with angular besides scanning through their docs a few times, but I thought it would be interesting to see what kinds of features and applications they would be touting at their conference.  Though most of my observations were a bit superficial, since I don't have extensive knowledge about Angular's inner workings, I found plenty to think about with regard to current projects at the CDRH.

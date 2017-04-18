@@ -4,6 +4,7 @@ title:  "Lewis and Clark Part 2: Building the Site"
 date:   2017-01-05 10:00
 categories: migration
 author: Karin Dalziel, Jessica Dussault, Greg Tunink, Laura Weakly, Brian Pytlik Zillig
+redirect_to: http://cdrhdev.unl.edu/log/2017/lewis-and-clark-2/
 ---
 
 ## Reformatting the HTML

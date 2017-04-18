@@ -4,6 +4,7 @@ title: "Network Drive Connection Problems (and Solution)"
 date: 2015-06-17 09:51
 categories: nebnews network smb
 author: Jessica Dussault
+redirect_to: http://cdrhdev.unl.edu/log/2015/network-drive-connection-problems/
 ---
 
 We recently finished work on making the [Nebraska Newspapers](http://nebnewspapers.unl.edu/) version of the [Chronicling America](http://chroniclingamerica.loc.gov/) project, which involved moving around lots of really, really large files like tiffs.  I got off to a rocky start because my computer was having trouble connecting to the network drives which host those files.  I'm putting a description of my [problem](#problem) below, as well as the [solution](#solution) I came up with in the hopes that it may help someone else.  The below is my attempt to mount a Windows network drive to my Mac (OS X - Yosemite).

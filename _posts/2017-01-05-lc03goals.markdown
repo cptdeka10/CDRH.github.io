@@ -4,6 +4,7 @@ title:  "Lewis and Clark Part 3: Future Goals"
 date:   2017-01-05 11:00
 categories: migration
 author: Karin Dalziel, Jessica Dussault, Greg Tunink, Laura Weakly, Brian Pytlik Zillig
+redirect_to: http://cdrhdev.unl.edu/log/2017/lewis-and-clark-3/
 ---
 
 We laid out a fairly ambitious work plan for 6-8 weeks, so it’s unsurprising we could not finish everything we hoped to accomplish. We have a host of features to add, and have laid the groundwork for their addition.

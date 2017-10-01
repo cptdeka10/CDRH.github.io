@@ -17,5 +17,5 @@ gems:
 
 # Build settings
 markdown: kramdown
-paginate: 5               # number of posts per page
+paginate: 10               # number of posts per page
 paginate_path: "/:num/"
